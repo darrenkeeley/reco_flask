@@ -1,0 +1,9 @@
+set FLASK_APP=flaskblog.py
+
+flask run
+
+##### in broswer, go to localhost:5000
+
+##### for debug mode,
+
+set FLASK_DEBUG=1

@@ -1,0 +1,39 @@
+##### Setting up Virtual Environments for Python in Windows
+
+##### https://www.youtube.com/watch?v=MwZwr5Tvyxo
+
+##### Using cmd in admin mode, assuming paths are set up for Python and pip,
+
+pip install virtualenv
+
+##### Make Environments directory in users\name
+
+mkdir Environments
+
+cd Environments
+
+##### create virtual env
+
+virtualenv project1_env
+
+##### activate virtual env
+
+project1_env\scripts\activate.bat
+
+##### to return to global env
+deactivate
+
+##### delete the virtual env
+rm -rf project1_env
+
+
+
+
+
+
+
+
+
+pip install flask
+
+# Now go to folder where you want to save project and create a .py file for the flask webpage
