@@ -189,10 +189,10 @@ results = recommend_similar(data_matrix=ratings_spread.fillna(0), movie_corr=mov
 #%%
 movie_ratings = ratings_spread.fillna(0)
 
-movie_ratings.to_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_ratings.csv')
-movie_info.to_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_info.csv')
-movie_info4.to_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_genres.csv')
-movie_corr.to_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_corr.csv')
+movie_ratings.to_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
+movie_info.to_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
+movie_info4.to_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
+movie_corr.to_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_corr.csv')
 
 
 #%%

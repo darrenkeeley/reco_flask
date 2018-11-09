@@ -1,23 +1,22 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from forms import MovieForm
 import pandas as pd
-from reco_engine import frogger
+from reco_engine import get_genres
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
 
-frogs = [frogger("frogger!")]
-
-#movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_ratings.csv')
-#movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_info.csv')
-#movie_genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_genres.csv')
-#movie_corr = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_corr.csv')
+movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
+movie_ratings = movie_ratings.drop(movie_ratings.columns[0], axis=1)
+movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
+movie_genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
 
 @app.route("/")
 
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template("home.html", frogs=frogs)
+	form = MovieForm()
+	return render_template('home.html', title="Enter a movie!", form=form)
 
 @app.route("/about")
 def about():
@@ -25,6 +24,7 @@ def about():
 
 @app.route("/movie_reco", methods=["GET", "POST"])
 def movie_reco():
-	form = MovieForm()
-
-	return render_template('movie_reco.html', title="Movie Recommendations", form=form)
+	if request.method == 'POST':
+		the_data = request.form
+		the_output=get_genres(movie_info, the_data['movie_name'], the_data['movie_year']).to_html()
+		return render_template('movie_reco.html', title="Movie Recommendations", the_output=the_output)
