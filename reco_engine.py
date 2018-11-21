@@ -1,6 +1,7 @@
 # %%
 import pandas as pd
 import numpy as np
+from flaskblog import db, Movie
 
 
 #%%
@@ -17,4 +18,5 @@ ImmutableMultiDict([('csrf_token', 'ImRkM2RkZGQyNWM0YjY5ZTIwMzU2MDlmYTBmNDU3MGNl
 
 def get_genres(movie_info, movie_name, movie_year):
 	movie_str = f'{movie_name} ({movie_year})'
-	return movie_info[movie_info['title']==movie_str]
+	x = Movie.query.filter_by(title=movie_str)
+	return pd.read_sql(x.statement, x.session.bind)

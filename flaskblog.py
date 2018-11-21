@@ -1,10 +1,26 @@
 from flask import Flask, render_template, url_for, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 from forms import MovieForm
 import pandas as pd
-from reco_engine import get_genres
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+db = SQLAlchemy(app)
+
+class Movie(db.Model):
+	# title includes year in original data
+	movieId = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(120), unique=False, nullable=False)
+	genres = db.Column(db.String(120))
+
+	def __repr__(self):
+		return f"Movie('{self.movieId}', '{self.title}', '{self.genres}')"
+
+# this import must be after db and Movie are defined.
+from reco_engine import get_genres
 
 movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
 movie_ratings = movie_ratings.drop(movie_ratings.columns[0], axis=1)

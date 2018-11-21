@@ -1,0 +1,33 @@
+# Using the db
+
+# cmd
+python
+
+from flaskblog import db
+
+# creates site.db in project directory
+db.create_all()
+
+
+
+# test code for adding all data from csv
+import pandas as pd
+movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
+from flaskblog import Movie
+
+for row in movie_info.iterrows():
+	film = Movie(movieId = row[1][0], title=row[1][1], genres=row[1][2])
+	db.session.add(film)
+
+db.session.commit()
+
+# show all rows in table
+Movie.query.all()
+
+# filter
+# .all() as opposed to .first()
+Movie.query.filter_by(title="Jumanji (1995)").all()
+
+# convert from sql to pandas df
+x = Movie.query
+df = pd.read_sql(x.statement, x.session.bind)
