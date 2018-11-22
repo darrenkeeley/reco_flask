@@ -22,10 +22,10 @@ class Movie(db.Model):
 # this import must be after db and Movie are defined.
 from reco_engine import get_genres
 
-movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
-movie_ratings = movie_ratings.drop(movie_ratings.columns[0], axis=1)
-movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
-movie_genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
+#movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
+#movie_ratings = movie_ratings.drop(movie_ratings.columns[0], axis=1)
+#movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
+#movie_genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
 
 @app.route("/")
 
@@ -42,5 +42,8 @@ def about():
 def movie_reco():
 	if request.method == 'POST':
 		the_data = request.form
-		the_output=get_genres(movie_info, the_data['movie_name'], the_data['movie_year']).to_html()
+		the_output=get_genres(the_data['movie_name'], the_data['movie_year']).to_html()
 		return render_template('movie_reco.html', title="Movie Recommendations", the_output=the_output)
+
+if __name__ == '__main__':
+	app.run()

@@ -16,7 +16,7 @@ ImmutableMultiDict([('csrf_token', 'ImRkM2RkZGQyNWM0YjY5ZTIwMzU2MDlmYTBmNDU3MGNl
 
 #%%
 
-def get_genres(movie_info, movie_name, movie_year):
+def get_genres(movie_name, movie_year):
 	movie_str = f'{movie_name} ({movie_year})'
 	x = Movie.query.filter_by(title=movie_str)
 	return pd.read_sql(x.statement, x.session.bind)
