@@ -30,35 +30,19 @@ def same_genres(MoI, genre_matrix):
     return z_final.index
 
 # %%
-def WR(v, m, R, C):
-    return (v/(v+m))*R + m/(v+m)*C
-
-
-# %%
 # data_matrix = movie_ratings as named in flask folder, or ratings_spread as named in original .py
 # parameter movies=movie_info
 # movie_genres = movie_genres aka movie_info4
-    
+
+
+def reco(movie_name, movie_year):
+    movie_str = f'{movie_name} ({movie_year})'
+    x = Movie.query.filter_by(title=movie_str)
+    return pd.read_sql(x.statement, x.session.bind)
+
+
 def recommend_similar(data_matrix, similar_movie_id, movies, movie_genres, percentile=.5, reco_length=30, filter_by_genre=True):
-    # Finding the mean rating for all movies across all users, excluding users who didn't rate
-    c = data_matrix[data_matrix != 0].mean()
-    
-    # Counting how many votes each movie got
-    vote_count = np.count_nonzero(data_matrix, axis = 0) # axis = 0 means count by column (by movie)
-    
-    # This is average rating by movie_id
-    vote_average = np.true_divide(data_matrix.sum(axis = 0),(data_matrix!=0).sum(axis = 0))
-    
-    # Adding vote_count and vote_average to the data
-    movies['vote_count'] = vote_count
-    movies['vote_average'] = vote_average
-    
-    # m is a number of vote_counts that is the cut of value
-    m = movies['vote_count'].quantile(percentile)
-    movies = movies[movies['vote_count'] >= m]
-    
-    # calculating the weighted average score
-    score = WR(movies['vote_count'], m, movies['vote_average'], c)
+
     
     # SettingWithCopyWarning
     movies['score'] = score

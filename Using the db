@@ -31,3 +31,99 @@ Movie.query.filter_by(title="Jumanji (1995)").all()
 # convert from sql to pandas df
 x = Movie.query
 df = pd.read_sql(x.statement, x.session.bind)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# for WR scores
+
+import pandas as pd
+db.create_all()
+wr_score = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/wr_scores.csv')
+from flaskblog import Wr_score
+
+for row in wr_score.iterrows():
+	film = Wr_score(movieId = row[1][0], score=row[1][1])
+	db.session.add(film)
+
+db.session.commit()
+
+
+
+
+
+
+
+
+
+
+
+# for genres
+# WARNING: sql_alchemy doesn't play nice with numpy.int64
+
+from flaskblog import db
+import pandas as pd
+from flaskblog import Genres
+
+db.create_all()
+
+genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
+
+for row in genres.iterrows():
+	film = Genres(movieId=int(row[1][0]), no_genres=int(row[1][1]), action=int(row[1][2]), adventure=int(row[1][3]), animation=int(row[1][4]), children=int(row[1][5]), comedy=int(row[1][6]), crime=int(row[1][7]), documentary=int(row[1][8]), drama=int(row[1][9]), fantasy=int(row[1][10]), film_noir=int(row[1][11]), horror=int(row[1][12]), imax=int(row[1][13]), musical=int(row[1][14]), mystery=int(row[1][15]), romance=int(row[1][16]), sci_fi=int(row[1][17]), thriller=int(row[1][18]), war=int(row[1][19]), western=int(row[1][20]))
+	db.session.add(film)
+
+db.session.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# chunk size limit when using _in() ?
+# sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) too many SQL variables 
+
+"""
+def get_genres(movie_name, movie_year):
+    movie_str = f'{movie_name} ({movie_year})'
+    x = Movie.query.filter_by(title=movie_str)
+    movieId = pd.read_sql(x.statement, x.session.bind)['movieId'][0]
+
+    genres = Genres.query
+    genres = pd.read_sql(genres.statement, genres.session.bind)
+
+    y = same_genres(movieId, genres)
+
+    #z = db.session.query(Wr_score).filter(Wr_score.movieId.in_([1,2,3]))
+    #z = db.session.query(Wr_score).filter(Wr_score.movieId.in_(y))
+
+    a = db.session.query(Wr_score, Movie).filter(Wr_score.movieId == Movie.movieId).filter(Wr_score.movieId.in_(y))
+    return pd.read_sql(a.statement, a.session.bind)
+"""

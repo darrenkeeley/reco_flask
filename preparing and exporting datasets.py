@@ -201,3 +201,11 @@ frogger = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco flask/data/movie_rati
 
 
 
+
+
+
+
+
+
+x = same_genres(1211, movie_genres)
+y = x.tolist()

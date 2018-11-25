@@ -2,3 +2,7 @@ data/movie_corr.csv
 data/movie_genres.csv
 data/movie_info.csv
 data/movie_ratings.csv
+cmd lines
+flaskblog.py.bak
+site.db.bak
+testing.py
