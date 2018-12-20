@@ -55,3 +55,34 @@ def get_genres(movie_name, movie_year):
     a = a.loc[y].sort_values(by =['score'], ascending=False) 
 
     return a.dropna()
+
+
+
+
+
+
+
+
+
+
+
+# Marija's
+# returns tuple: (indicator, table)
+# index must be shown because a table is returned. movie_id is dropped.
+def which_movie(movie_title, movies, top_k_most_similar):
+    movie_title = movie_title.lower()
+    movie_sub = movies[movies.lower_title.str.find(movie_title) != -1]
+    n = len(movie_sub.index)
+
+    if n == 0: 
+        return (0 , movie_sub.iloc[:,1:3])
+
+    elif n > 1:
+        return (2 , movie_sub.iloc[:,1:3])
+
+    else:
+        get_movie_id = int(movie_sub.movie_id)
+        items_id = top_k_most_similar.iloc[get_movie_id,] # take movies that are most similar with movi_id = item_num
+        movie_info_item = movies.copy()
+        movie_info_item = movie_info_item.set_index('movie_id')
+        return (1, movie_info_item.loc[items_id.astype('int'),:])

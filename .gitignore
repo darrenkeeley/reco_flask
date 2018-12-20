@@ -6,3 +6,9 @@ cmd lines
 flaskblog.py.bak
 site.db.bak
 testing.py
+data/item_sim_df.csv
+data/movie_info3.csv
+data/movies_with_lower.csv
+data/top_k_most_similar.csv
+reco_engine - Copy.py
+__pycache__
