@@ -1,7 +1,0 @@
-# virtual env in bash for pythonanywhere
-
-# flask_app is name of env
-mkvirtualenv --python=usr/bin/python3.6 flask_app
-
-# also installed these packages:
-# pandas, flask, flask_wtf, flask_sqlalchemy

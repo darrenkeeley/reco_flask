@@ -2,13 +2,17 @@ data/movie_corr.csv
 data/movie_genres.csv
 data/movie_info.csv
 data/movie_ratings.csv
-cmd lines
-flaskblog.py.bak
-site.db.bak
-testing.py
 data/item_sim_df.csv
 data/movie_info3.csv
 data/movies_with_lower.csv
 data/top_k_most_similar.csv
-reco_engine - Copy.py
-__pycache__
+
+flaskblog.py.bak
+testing.py
+
+__pycache__/
+
+Running Flask app.txt
+Setting up Virtual Environments.txt
+Using the db.txt
+virtual env in bash for pythonanywhere.txt

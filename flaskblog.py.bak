@@ -59,48 +59,45 @@ class Genres(db.Model):
 # this import must be after db and Movie are defined.
 from reco_engine import get_genres, which_movie
 
-#movie_ratings = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_ratings.csv')
-#movie_ratings = movie_ratings.drop(movie_ratings.columns[0], axis=1)
-#movie_info = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_info.csv')
-#movie_genres = pd.read_csv(r'C:/Google Drive/CSUEB/stat694/reco_flask/data/movie_genres.csv')
-#movie_genres = movie_genres.set_index("movieId")
-
-item_sim_df = pd.read_csv(r'data/item_sim_df.csv')
-movie_info = pd.read_csv(r'data/movie_info3.csv')
+# movies doesn't use index. Instead use movie_id.
+# However, top_k_most_similar does use index.
 movies = pd.read_csv(r'data/movies_with_lower.csv')
 top_k_most_similar = pd.read_csv(r'data/top_k_most_similar.csv')
+top_k_most_similar = top_k_most_similar.set_index('0')
 
 
 @app.route("/")
 
 @app.route("/home", methods=["GET", "POST"])
 def home():
-	form = MovieForm()
-	return render_template('home.html', title="Enter a movie!", form=form)
+	form = MovieForm2()
+	return render_template('home.html', form=form)
 
 @app.route("/about")
 def about():
-    return render_template("about.html", title='About')
+    return render_template("about.html")
 
+"""
 @app.route("/movie_reco", methods=["GET", "POST"])
 def movie_reco():
 	if request.method == 'POST':
 		the_data = request.form
 		the_output=get_genres(the_data['movie_name'], the_data['movie_year']).to_html()
-		return render_template('movie_reco.html', title="Movie Recommendations", the_output=the_output)
+		return render_template('movie_reco.html', the_output=the_output)
+"""
 
 @app.route("/movie_reco2", methods=["GET", "POST"])
 def movie_reco2():
 	if request.method == 'POST':
 		the_data = request.form
-		indicator, table = which_movie(the_data['movie_name'], movies=movies, item_sim_df=item_sim_df, movie_info=movie_info, top_k_most_similar=top_k_most_similar)
+		indicator, table = which_movie(the_data['movie_name'], movies=movies, top_k_most_similar=top_k_most_similar)
 		table = table.to_html()
 		form = MovieForm2()
-		return render_template('movie_reco2.html', title="Movie Recommendations", the_output=table, form=form, indicator=indicator)
+		return render_template('movie_reco2.html', the_output=table, form=form, indicator=indicator)
 
 	else:
 		form = MovieForm2()
-		return render_template('movie_reco2.html', title="Enter a movie!", form=form)
+		return render_template('movie_reco2.html', form=form)
 
 if __name__ == '__main__':
 	app.run()

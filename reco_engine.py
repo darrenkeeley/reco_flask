@@ -1,7 +1,7 @@
 # %%
 import pandas as pd
 import numpy as np
-from flaskblog import db, Movie, Wr_score, Genres
+from main_app import db, Movie, Wr_score, Genres
 
 
 #%%
@@ -85,4 +85,4 @@ def which_movie(movie_title, movies, top_k_most_similar):
         items_id = top_k_most_similar.iloc[get_movie_id,] # take movies that are most similar with movi_id = item_num
         movie_info_item = movies.copy()
         movie_info_item = movie_info_item.set_index('movie_id')
-        return (1, movie_info_item.loc[items_id.astype('int'),:])
+        return (1, movie_info_item.loc[items_id.astype('int'),:].iloc[:,0:2])

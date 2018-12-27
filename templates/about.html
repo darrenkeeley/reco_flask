@@ -1,6 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 <div>
-	<p>Recommendations are made by computing a similarity matrix, then returning the top 10 most similar movies for each movie.</p>
+	<legend class="border-bottom mb-4">The algorithm and the webapp</legend>
+	<p>Recommendations were made by computing the cosine similarity between movies using user ratings, and then returning the top 10 most similar movies. The data used was from <a href="https://grouplens.org/datasets/movielens/">MovieLens.</a></p>
+
+	<br>
+
+	<p>This app was made using the Python web app framework Flask, and hosted on Python Anywhere</p>
+
+	<br>
+
+	<p>This app was a class project at CSU East Bay, dept of Statistics. It was an exercise in Python programming and recommendation algorithms.</p>
+
+	<br>
+	<legend class="border-bottom mb-4">About the authors</legend>
+	<p>Darren Keeley</p>
+	<p><a href="https://www.linkedin.com/in/darren-keeley/">https://www.linkedin.com/in/darren-keeley/</a></p>
+	<p><a href="https://darrensstuffdrawer.blogspot.com/">https://darrensstuffdrawer.blogspot.com/</a></p>
+	<p><a href="https://github.com/darrenkeeley/">https://github.com/darrenkeeley/</a></p>
+
+	<br>
+
+	<p>Marija Stanojcic</p>
+
 </div>
 {% endblock content %}
